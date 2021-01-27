@@ -1,0 +1,61 @@
+project based on vue.js 3
+possible bugs:
+1.don't place condition inside <teleport>
+source of bugs
+<teleport to="...">
+    <div v-if="showSignUp">
+        <Modal> component
+
+2. control of teleported elems will be not from 
+index.html but from App.vue(Modal.vue as a child component)
+
+3.css for modal should be not scoped
+otherwise you need to put them in App.vue(parent)
+
+# nice example select <=> input form https://codepen.io/chriscoyier/pen/yLyyZrr
+
+4.let op: in vue.js regex "*" = not supported|=> instead path:'/:catchAll(.*)'
+
+5. in App.vue routing:
+  - <router-view/> (see then router/index.js)
+        main.js (entry-point) knows about router,
+        router/index.js knows const routers=[{path,name,component}]
+        всего одна буква "r", а какая разница
+
+        just info                        vs   action
+        route                            vs   router
+        =========                              ========
+        script(this.$route.params.id)   vs   this.$router.push() 
+        template($route.params.id)      vs   this.$router.go(-1)
+    Note:
+    a. if you need to params in url to use it in a component:
+        router/index.js (тупо випилить)
+        {
+            path:'/jobs/:id',
+            name...,
+            component ...
+        } 
+        in component: 
+        data(id:this.$route.params.id) 
+    b.dynamic params (click detail-item|=> to to detail-item)
+    #############
+        b.1 (pass an object in tempate link)
+        loop through jobs :key="job.id"
+        <router-link :to="{name:'...',params:{id:job.id}}">
+            job.title
+        </router-link>
+        + see punt a./jobs/:id 
+    ##############          
+        b.2 id as a props
+        in child props:['id']
+        in index.js:{
+            path:'/jobs/',
+            name...,
+            component ...
+            props:true
+        }  
+        no need!  to loof for data(...id:$this.router.params.id)
+
+           
+
+  - import whole component(<Modal>,<Footer> etc)
