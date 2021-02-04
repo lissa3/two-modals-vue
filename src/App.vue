@@ -8,14 +8,18 @@
       <router-link :to="{name:'About'}"
       >About</router-link>    
     </div>
+    <div class="menu-item">
+      <router-link :to="{name:'Contact'}"
+      >Contact</router-link>    
+    </div>
     <div class="menu-item">    
-      <button @click="toggleSignUp">Sign Up</button>
+      <button @click="toggleSignUp">Modal Sign Up</button>
     </div>  
     <div class="menu-item">
-      <button @click="toggleLogIn">Login</button>
+      <button @click="toggleLogIn">Modal Login</button>
     </div>    
     <div class="menu-item">
-      <router-link to="/sign-up-form">Form</router-link>    
+      <router-link to="/sign-up-form">Regular SingUp-Form</router-link>    
     </div>      
   </div> 
   <hr> 
@@ -66,11 +70,11 @@ export default {
   methods:{
     toggleSignUp(){
       this.showSignUp = !this.showSignUp;
-      console.log("sing up",this.showSignUp);
+      // console.log("sing up",this.showSignUp);
     },
     toggleLogIn(){
       this.showLogIn = !this.showLogIn;
-      console.log("log in",this.showLogIn);
+      // console.log("log in",this.showLogIn);
     }, 
   },
 }

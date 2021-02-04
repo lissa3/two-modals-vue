@@ -1,5 +1,6 @@
 <template>    
     <!-- <div class="backdrop" :class="show ? 'invisible':'red'" ref="mod"> -->
+    <!-- only div = back is targeted to be hidden thx .self -->
     <div class="back"  @click.self="hideModal">
         <div class="modal">            
             <slot></slot> 

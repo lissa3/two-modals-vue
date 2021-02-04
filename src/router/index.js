@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Play from '@/views/Play.vue'
 import SignUpView from '@/views/SignUp.vue'
 import Home from '@/views/Home.vue'
+import Contact from '@/views/Contact.vue'
 import notFound from '@/views/notFound.vue'
 const routes = [   
   
@@ -10,6 +10,11 @@ const routes = [
     path:'/',
     name:'Home',
     component:Home
+  }, 
+  {
+    path:'/contact',
+    name:'Contact',
+    component:Contact
   }, 
   {
     path:'/sign-up-form',
