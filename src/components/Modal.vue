@@ -2,9 +2,11 @@
     <!-- <div class="backdrop" :class="show ? 'invisible':'red'" ref="mod"> -->
     <!-- only div = back is targeted to be hidden thx .self -->
     <div class="back"  @click.self="hideModal">
-        <div class="modal">            
+        <div class="my-modal">  
+            <div class="coral">
             <slot></slot> 
-            <div class="actions">
+            </div>          
+            <div class="actions marine">
                 <slot name="signItUp"></slot>
                 <slot name="logItIn"></slot>
             </div>                  
@@ -32,7 +34,10 @@ export default {
 </script>
 
 <style>
-.modal{
+.coral{
+    background-color: coral;
+}
+.my-modal{
     width:400px;
     padding:20px;
     margin:100px auto;

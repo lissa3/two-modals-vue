@@ -3,9 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SignUpView from '@/views/SignUp.vue'
 import Home from '@/views/Home.vue'
 import Contact from '@/views/Contact.vue'
+import Cart from '@/views/Cart.vue'
 import notFound from '@/views/notFound.vue'
-const routes = [   
-  
+const routes = [  
   {
     path:'/',
     name:'Home',
@@ -15,6 +15,11 @@ const routes = [
     path:'/contact',
     name:'Contact',
     component:Contact
+  }, 
+  {
+    path:'/cart',
+    name:'Cart',
+    component:Cart
   }, 
   {
     path:'/sign-up-form',

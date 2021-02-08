@@ -3,7 +3,7 @@
       <h1>I'm a home page</h1>
       <h2>Welcome</h2>      
       <p>All posts: (from child component)</p>
-      <Posts :posts="posts" @deletePost="deletePost"></Posts>
+      <Posts :posts="getPosts" @deletePost="deletePost"></Posts>
       <!-- <Posts :posts="posts" @deletePost="deletePost(event)"></Posts> -->
       
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 import Posts from '@/components/Posts'
-// import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 export default {
   name: 'Home',
   components:{
@@ -19,7 +19,7 @@ export default {
   },
   data(){
     return {
-      posts:[
+      posts_original:[
         {
         "userId": 1,
         "id": 1,
@@ -33,8 +33,12 @@ export default {
         "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
       },
       ],
-      
+           
     }
+  },
+  computed:{
+    ...mapGetters(['getPosts'])
+
   },
   methods:{
     // deletePost(postId){

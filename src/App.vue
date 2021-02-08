@@ -1,33 +1,56 @@
 <template>
-  <div id="nav">
-    <div class="menu-item">
-      <router-link to="/">Home</router-link>       
-    </div>
-    <div class="menu-item">
-      <!-- to="/about" static -->
-      <router-link :to="{name:'About'}"
-      >About</router-link>    
-    </div>
-    <div class="menu-item">
-      <router-link :to="{name:'Contact'}"
-      >Contact</router-link>    
-    </div>
-    <div class="menu-item">    
-      <button @click="toggleSignUp">Modal Sign Up</button>
-    </div>  
-    <div class="menu-item">
-      <button @click="toggleLogIn">Modal Login</button>
-    </div>    
-    <div class="menu-item">
-      <router-link to="/sign-up-form">Regular SingUp-Form</router-link>    
-    </div>      
-  </div> 
-  <hr> 
-  <teleport to=".modals">
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <router-link to="/">Home</router-link>   
+        <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+      </li>
+      <li class="nav-item">
+        <button @click="toggleSignUp">Modal Sign Up</button>
+      </li>
+      <li class="nav-item">
+        <button @click="toggleLogIn">Modal Login</button>        
+      </li>
+      <li class="nav-item">
+       <router-link to="/sign-up-form">Regular SingUp-Form</router-link>    
+      </li>     
+      <li class="nav-item">
+       <router-link to="/cart">Let's go shopping</router-link>    
+      </li>     
+    </ul>
+  </div>
+</nav>  
+<router-view/>
+  <!-- <footer>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <router-link :to="{name:'About'}"
+            >About</router-link> 
+            <router-link :to="{name:'Contact'}"
+            >Contact</router-link> 
+                  
+        </div>
+      </div>
+    </nav>    
+  </footer> -->
+  </div>  
+<teleport to=".modals">
       <div v-if="showSignUp">      
         <Modal @closeModal="toggleSignUp" >
-          <slot>Welcome to SignUp</slot>
-          <template v-slot:signItUp>          
+          <slot>Msg from parent App.vue(slot): Welcome to SignUp</slot>
+          <template v-slot:signItUp> 
+            <p>Msg from parent App.vue(slot):I'm a named slot!</p>         
             <a href="#">contact us</a>
             <p >here comes a singup form</p>
           </template>
@@ -47,8 +70,7 @@
         </Modal>
       </div>
   </teleport>
- 
-  <router-view/>
+  
 </template>
 
 <script>
@@ -57,8 +79,7 @@ import Modal from '@/components/Modal.vue';
 export default {
   name:"App",
   components:{
-    Modal  
-   
+    Modal    
   },
   data(){
     return {
@@ -97,11 +118,20 @@ export default {
   color:white;
   /* display: inline-block; */
 }
-#nav a.router-link-active{
-  padding:5px;
+/* nav-item nav-link */
+/* #nav a.router-link-active{ */
+.nav-item a.nav-link {
+  display: inline-block;
+  padding-top: .3125rem;
+  padding-bottom: .3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+  /* padding:5px;
   background: purple;
   border-radius: 10px;
-  color:white;
+  color:white; */
   /* display: inline-block; */
 }
 #nav a.router-link-exact-active{
