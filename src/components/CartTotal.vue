@@ -9,10 +9,15 @@
 <script>
 // dif .map() vs .forEach() no change vs change initial arr (fastvs slow)
 // https://codeburst.io/javascript-map-vs-foreach-f38111822c0f
+// import {mapGetters} from 'vuex';
+import {mapGetters} from 'vuex';
+
 export default {
-  props:['prodList'],
+  props:['prodList'],  
   computed:{
+    
     totalSum(){
+      console.log("i am a total, buzy with calc-ns")
       let total = 0
       // can be also forEach
       this.prodList.map(item=>{

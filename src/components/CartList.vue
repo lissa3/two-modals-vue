@@ -4,14 +4,16 @@
     <div class="row">
         <div class="col col-md-12" >
           <cart-list-item v-for="prod in prodList" :key="prod.id"
-          :prod="prod" @removeItem="removeItem"></cart-list-item>
+          :prod="prod" @remove="$emit('remove',$event)"
+          @update="$emit('update',$event)"
+          ></cart-list-item>
         </div>
       </div> 
   </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex';
+// import {mapMutations} from 'vuex';
 import geit from '@/assets/geit.jpg'
 import CartItem from '@/components/CartItem.vue'
 export default {
@@ -24,20 +26,8 @@ export default {
       img:geit
     }
   },
-  computed:{
-    // ...mapMutations(['changeProdList']),
-  },
   methods:{
-  removeItem(itemId){
-    // console.log("inside removeItem",itemId);
-    // attempt to use mapMutations
-    // this.changeProdList(itemId);
-    let index = this.prodList.findIndex((item)=>{
-        return item.id === itemId;
-      })
-      // works without return
-      this.prodList.splice(index,1);
-    }
+ 
   }
 }
 </script>

@@ -4,28 +4,28 @@ export default ({
       {       
         id: 1,
         name: "Golden Snitch ",
-        price:600,
+        price:100,
         num:1,
         image:'@/assets/geit.jpg'        
       },
       {       
         id: 2,
         name: "Unicorn Hair",
-        price:1600,
+        price:100,
         num:1,
         image:'@/assets/geit.jpg'        
       },
       {       
         id: 3,
         name: "Wand",
-        price:5600,
+        price:100,
         num:1,
         image:'@/assets/geit.jpg'        
       },
       {       
         id: 4,
         name: "Numbus 2000",
-        price:3600,
+        price:100,
         num:1,
         image:'@/assets/geit.jpg'        
       },
@@ -36,9 +36,9 @@ export default ({
     getProds(state){return state.prodItems},   
   },
   mutations: {
-    // changeProdList(state,newProdList){
-    //   state.prodItems = newProdList
-    //   }
+    changeProdList(state,newProdList){
+      state.prodItems = newProdList
+      }
   },  
   // actions: {
   //   removeProdFromList(context){

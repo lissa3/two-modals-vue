@@ -4,6 +4,7 @@ import SignUpView from '@/views/SignUp.vue'
 import Home from '@/views/Home.vue'
 import Contact from '@/views/Contact.vue'
 import Cart from '@/views/Cart.vue'
+import Cart2 from '@/components/CartOption2/Cart2.vue'
 import notFound from '@/views/notFound.vue'
 const routes = [  
   {
@@ -20,6 +21,11 @@ const routes = [
     path:'/cart',
     name:'Cart',
     component:Cart
+  }, 
+  {
+    path:'/cart-option-2',
+    name:'Cart2',
+    component:Cart2
   }, 
   {
     path:'/sign-up-form',

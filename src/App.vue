@@ -21,7 +21,10 @@
        <router-link to="/sign-up-form">Regular SingUp-Form</router-link>    
       </li>     
       <li class="nav-item">
-       <router-link to="/cart">Let's go shopping</router-link>    
+       <router-link to="/cart">Cart C+</router-link>    
+      </li>     
+      <li class="nav-item">
+       <router-link to="/cart-option-2">Cart C-</router-link>    
       </li>     
     </ul>
   </div>
