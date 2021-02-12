@@ -6,10 +6,31 @@
       <!-- <div class="cart-info">Total items</div> -->
       <div class="cart-info">Amount products:{{prodAmount}}</div>
       <div class="cart-info">Total: ${{getAmount}}</div>
-      <div class="closeX">
+      <div class="closeX" v-if="cart.length>0">
         <button class="btn btn-danger" @click="emptyCart">Empty Cart</button>   
-      </div> 
-      
+      </div>      
+    </div>
+    <div class="display-cart-state" v-if="cart.length>0">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Prod Name</th>
+              <th scope="col">Price (per 1 Item)</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Sub Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in cart" :key="item.id">
+              <th scope="row">1</th>
+              <td>{{item.name}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.num}}</td>
+              <td>{{item.subtotal}}</td>
+            </tr>           
+          </tbody>
+        </table>
     </div>
       <div class="row">
         <div class="col col-md-12" >
@@ -21,23 +42,34 @@
               <img :src="prod.image" alt="img">               
             </div>-->
             <div class="calc-block equal">
-              <div v-if="prod.added" class="minus" @click="subtructOne(prod.id)">
+              <div v-if="prod.added" class="minus2" @click="subtructOne(prod.id)" ref="zoo">
                 <span>-</span>
               </div>
               <div class="amount-input">
-                <div  v-if="prod.added" class="amount-input-item">
-              <input type="text" :value="prod.num" @blur="getUserInp(prod.id,$event)"> 
-                </div>
-                <div v-if="errMsg" class="amount-input-item">
-                  <p v-if="errMsg" class="red">{{errMsg}}</p>
-                </div>
+              <div  v-if="prod.added" class="amount-input-item">
+              <input type="number"
+              min="0" max="500"  step=1
+              v-model="prod.num"
+              
+              > 
+              <!-- <input type="number"
+              min="0" max="500"  step=1
+              :value="prod.num" 
+              @blur="getUserInp(prod.id,$event)">  -->
+              </div>               
                 <div class="amount-input-item">
                   <button class="btn btn-success"
+                  v-if="!prod.added"
                   @click="addToCart(prod.id)"
-                  >Add to cart</button>
+                  >Add to cart
+                  </button>
+                  <button class="btn btn-danger" v-if="prod.added"
+                  @click="removeFromCart(prod.id)"
+                  >Remove from cart
+                  </button>
                 </div>                      
               </div>
-              <div v-if="prod.added" class="plus" @click="addOne(prod.id)">
+              <div v-if="prod.added" class="plus2" @click="addOne(prod.id)">
                 <span>+</span>
               </div>
             </div>               
@@ -49,10 +81,7 @@
                 <div>Sub-Total:  </div>
               </div>
             </div> 
-            <!-- <div class="closeX" @click="deleteProduct(prod.id)">
-                X
-            </div>                  -->
-        </div>     
+          </div>     
       </div>
       <!-- if item is already incart  -->
     </div>       
@@ -74,7 +103,8 @@ export default {
         price:10,
         num:1,
         image:'@/assets/geit.jpg',
-        added:false        
+        added:false,
+        subtotal:0        
       },
       {       
         id: 3,
@@ -82,7 +112,8 @@ export default {
         price:20,
         num:1,
         image:'@/assets/geit.jpg' ,
-        added:false       
+        added:false,
+        subtotal:0        
       },
       {       
         id: 4,
@@ -90,7 +121,8 @@ export default {
         price:25,
         num:1,
         image:'@/assets/geit.jpg',
-        added:false       
+        added:false,
+        subtotal:0        
       },
       {       
         id: 14,
@@ -98,15 +130,51 @@ export default {
         price:300,
         num:1,
         image:'@/assets/geit.jpg',
-        added:false        
+        added:false,
+        subtotal:0          
       },
       
-    ],
-      errMsg:"",
-      errSubtruct:""     
+    ],     
     }
   },
-  methods:{ 
+  methods:{
+    getCartFromLocalStorage(){
+      if(localStorage.getItem('cart')){
+        const itemsInCartLocalStor = JSON.parse(localStorage.getItem('cart'))
+        return itemsInCartLocalStor;
+      }else{
+        return []
+      }
+    }, 
+    setToLocalStore(){
+      // if there is already 'old' cart in LStorage
+      localStorage.removeItem('cart');
+      const usercart = JSON.stringify(this.cart)
+      localStorage.setItem('cart',usercart)
+    } ,   
+    removeFromCart(prodId){
+      console.log("removing item with id from the cart",prodId);
+      this.products.filter((item)=>{
+        if(item.id === prodId){
+          item.added = false;
+          this.prodAmount -=1;
+          let index = this.cart.findIndex((item)=>{
+            return item.id == prodId
+            })
+          this.cart.splice(index,1)
+          console.log("current cart state",this.cart)
+        }
+        // if smth has been changed in cart;
+        this.setToLocalStore()
+      })
+      // if user deleted the last item from the cart
+      let itemsInCart = JSON.parse(localStorage.getItem('cart'));
+      if (itemsInCart.length ===0){
+        localStorage.removeItem('cart');
+        console.clear;
+      }
+
+    },
     addToCart(prodId){
       console.log("found",prodId);
       this.products.filter((item)=>{
@@ -115,12 +183,10 @@ export default {
             this.prodAmount +=1;
             this.cart.push(item);
             // return item; // do I need it now????
-          }else if(item.id == prodId&&item.added){
-            // bug (all items get this errMsg)
-            this.errMsg = 'This Item already in Cart'
           }
         })
       console.log("cart is:",this.cart);
+      this.setToLocalStore(this.cart)
       return this.products         
     },
     addOne(prodId){
@@ -128,59 +194,76 @@ export default {
         if(item.id === prodId){
           console.log("fount smth to rise");
           item.num +=1;
-        }else{
-          console.log("hmmmm.......")
         }
       })
     },
     subtructOne(prodId){
-       this.cart.filter((item)=>{
+        this.cart.filter((item)=>{
         if(item.id === prodId&&(item.num >=1)){
-          console.log("fount smth to rise");
           item.num -=1;
         }else{
-          this.errSubtruct ="below zero";
-          console.log("belowing zeroing");
+          this.$refs.zoo.classList.add('disabled');             
+          
         }
       })
     },
     emptyCart(){
       this.cart = [];
       this.prodAmount = 0;
+      localStorage.removeItem('cart')
       this.products.map((item)=>{
         item.added = false;
-        return item
+        return item;
       })
-    },
-    
+    },    
     getUserInp(prodId,event){
       console.log("event is",event.target.value);      
-      console.log("targeting id",prodId);
       this.cart.filter((item)=>{
         if(item.id===prodId){
           item.num = event.target.value;
         }
         return item;
+      })      
+    } 
+  },
+  mounted(){
+    // in case user re-loads this page
+    this.cart = this.getCartFromLocalStorage();
+    // check if cart in LS not empty
+    if(this.cart.length>0){
+      // to sync state of item.added in products and items in cart
+      // in case of active reload of the page
+      this.products.filter((item)=>{
+        this.cart.map((cartItem)=>{
+          if(item.id === cartItem.id){
+            item.added = true;
+          }
+        })
       })
-      
-    }    
-
+    }
   },
   computed:{
     getAmount(){
       let count = 0;
       this.cart.map((item)=>{
         let subTotal = item.num*item.price;
-        console.log("price per item",subTotal)
-        count += subTotal;
-        
+        item.subtotal = subTotal;
+        count += subTotal;        
       })
       return count;
-    }
+    },
+    
   }  
 }
 </script>
 <style scoped>
+.table {
+  border:1px solid red;
+}
+.btn-danger{
+  background-color: #dc991f;
+  border: 1px solid #dc991f;
+}
 .container{
   max-height: 100vh;
 }
@@ -196,6 +279,7 @@ export default {
 .display-cart-state{
   display: flex;
   justify-content: space-between;
+  margin:1rem ;
 }
 .wrap{
   display: flex;
@@ -221,10 +305,12 @@ export default {
   text-align: left;
 }
 
-.plus,.minus{
+.plus2,.minus2{
+  background-color: coral;
   display: flex;
   justify-content: center;
   border-radius: 50%;
+  cursor: pointer;
   width:30px;
   height:30px;
   margin:1rem;
@@ -243,13 +329,7 @@ export default {
   color:red;
   cursor: pointer;
 }
-.plus,.minus{
-  background-color: darkgrey;
-  width:30px;
-  height:30px;
-  border-radius: 50%;
-  cursor: pointer;
-}
+
 .prod-img{
   background-color: rgb(222, 238, 153);
   width:100px;
