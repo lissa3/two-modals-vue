@@ -1,5 +1,6 @@
 <template>
-<div class="container">
+<div class="container-fluid">
+  <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,17 +20,27 @@
       </li>
       <li class="nav-item">
        <router-link to="/sign-up-form">Regular SingUp-Form</router-link>    
+      </li>      -->
+       <li class="nav-item">
+       <router-link to="/cart">Cart C+</router-link>    
       </li>     
       <li class="nav-item">
-       <router-link to="/cart">Cart C+</router-link>    
+       <router-link to="/movies">Movie</router-link>    
       </li>     
       <li class="nav-item">
        <router-link to="/cart-option-2">Cart C-</router-link>    
       </li>     
+      <li class="nav-item">
+       <router-link to="/second-modal">SecondModal</router-link>    
+      </li>     
     </ul>
   </div>
-</nav>  
-<router-view/>
+</nav> 
+  </header> 
+  <modal-root></modal-root>
+  <main>
+        <router-view/>
+  </main>
   <!-- <footer>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
@@ -47,7 +58,7 @@
       </div>
     </nav>    
   </footer> -->
-  </div>  
+</div>  
 <teleport to=".modals">
       <div v-if="showSignUp">      
         <Modal @closeModal="toggleSignUp" >
@@ -65,7 +76,8 @@
         <Modal @closeModal="toggleLogIn" >
           <slot>
             <p >test it</p>
-            Welcome to LogIn</slot>
+            Welcome to LogIn
+          </slot>
           <template v-slot:logItIn>
             <a href="#">one link</a>
             <p>here comes a login form</p>
@@ -78,11 +90,13 @@
 
 <script>
 import Modal from '@/components/Modal.vue';
+import ModalRoot from "@/modules/modals/components/ModalRoot.vue"
 
 export default {
   name:"App",
   components:{
-    Modal    
+    Modal,
+    ModalRoot    
   },
   data(){
     return {
@@ -123,19 +137,24 @@ export default {
 }
 /* nav-item nav-link */
 /* #nav a.router-link-active{ */
+.nav-item{
+  padding-right: 1rem;
+  margin-right: 1rem;
+}
 .nav-item a.nav-link {
   display: inline-block;
   padding-top: .3125rem;
   padding-bottom: .3125rem;
+  /* padding-right:1rem; */
   margin-right: 1rem;
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
-  /* padding:5px;
-  background: purple;
+  /* padding:5px; */
+  /* background: purple;
   border-radius: 10px;
-  color:white; */
-  /* display: inline-block; */
+  color:white;  */
+  
 }
 #nav a.router-link-exact-active{
   padding:5px;

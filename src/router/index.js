@@ -3,8 +3,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SignUpView from '@/views/SignUp.vue'
 import Home from '@/views/Home.vue'
 import Contact from '@/views/Contact.vue'
+import Movies from '@/views/Movie.vue'
+import MovieDetail from '@/views/MovieDetail.vue'
 import Cart from '@/views/Cart.vue'
 import Cart2 from '@/components/CartOption2/Cart2.vue'
+import ModalWrap from '@/components/secondModal/ModalWrap'
 import notFound from '@/views/notFound.vue'
 const routes = [  
   {
@@ -12,6 +15,18 @@ const routes = [
     name:'Home',
     component:Home
   }, 
+  // movies
+  {
+    path:'/movies',
+    name:'Movies',
+    component:Movies
+  }, 
+   {
+    path:'/movie/:id',
+    name:'MovieDetail',
+    component:MovieDetail
+  },
+  // end movies 
   {
     path:'/contact',
     name:'Contact',
@@ -35,6 +50,10 @@ const routes = [
   {
     path:'/old-sign-up-form',
     redirect:'/sign-up-form'
+  }, 
+  {
+    path:'/second-modal',
+    component:ModalWrap
   }, 
   {
     path: '/about',

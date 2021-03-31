@@ -21,9 +21,9 @@ otherwise you need to put them in App.vue(parent)
         main.js (entry-point) knows about router,
         router/index.js knows const routers=[{path,name,component}]
         всего одна буква "r", а какая разница
-
-        just info                        vs   action
-        route                            vs   router
+        "route для инфы"                "router для действия"
+        ==just info==                    == action==
+        route             vs                router
         =========                              ========
         script(this.$route.params.id)   vs   this.$router.push() 
         template($route.params.id)      vs   this.$router.go(-1)
