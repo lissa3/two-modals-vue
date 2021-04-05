@@ -54,7 +54,7 @@ otherwise you need to put them in App.vue(parent)
             component ...
             props:true
         }  
-        no need!  to loof for data(...id:$this.router.params.id)
+        no need!  to look for data(...id:$this.router.params.id)
 
            
 

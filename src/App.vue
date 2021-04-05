@@ -37,10 +37,15 @@
   </div>
 </nav> 
   </header> 
-  <modal-root></modal-root>
+  
   <main>
         <router-view/>
   </main>
+  <div>
+    Click it
+    <ModalRoot></ModalRoot>
+    <button class="btn-sm success">Open?</button>
+  </div>
   <!-- <footer>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
@@ -59,7 +64,7 @@
     </nav>    
   </footer> -->
 </div>  
-<teleport to=".modals">
+<!-- <teleport to=".modals">
       <div v-if="showSignUp">      
         <Modal @closeModal="toggleSignUp" >
           <slot>Msg from parent App.vue(slot): Welcome to SignUp</slot>
@@ -70,8 +75,8 @@
           </template>
         </Modal>     
       </div>
-  </teleport>
-  <teleport to=".modals">
+  </teleport> -->
+  <!-- <teleport to=".modals">
       <div v-if="showLogIn">
         <Modal @closeModal="toggleLogIn" >
           <slot>
@@ -84,19 +89,25 @@
           </template>
         </Modal>
       </div>
-  </teleport>
+  </teleport> -->
   
 </template>
 
 <script>
 import Modal from '@/components/Modal.vue';
-import ModalRoot from "@/modules/modals/components/ModalRoot.vue"
+// third option
+import ModalService from "./modules/modals/services/modal.service";
+
+
+import ModalRoot from "@/modules/modals/components/ModalRoot"
+import TestModal from "@/components/TestModal";
 
 export default {
   name:"App",
   components:{
     Modal,
-    ModalRoot    
+    ModalRoot,
+    TestModal  
   },
   data(){
     return {
@@ -114,6 +125,9 @@ export default {
       this.showLogIn = !this.showLogIn;
       // console.log("log in",this.showLogIn);
     }, 
+    addModal(){
+      ModalService.open(TestModal)
+    }
   },
 }
 </script>
